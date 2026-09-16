@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPF_DataGrid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_DataGrid"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <DataGrid x:Name="tableProduct" Height="200" AutoGenerateColumns="False"
+                   SelectionChanged="tableProduct_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Товар" Width="200" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Цена" Width="100" Binding="{Binding Price}" />
+                <DataGridTextColumn Header="Количество" Width="200" Binding="{Binding Count}" />
+                
+
+                <DataGridTemplateColumn Header="Действие">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Купить" Click="Buy1_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Text="Название"/>
+        <TextBox x:Name="txtName"/>
+        <TextBlock Text="Цена"/>
+        <TextBox x:Name="txtPrice"/>
+        <TextBlock Text="Количество"/>
+        <TextBox x:Name="txtCount"/>
+
+        <Button Content="Добавить Товар" Click="Add_Click" />
+        <Button Content="Удалить Товар" Click="Del_Click" />
+        <Button Content="Купить" Click="Buy_Click" />
+    </StackPanel>
+</Window>
