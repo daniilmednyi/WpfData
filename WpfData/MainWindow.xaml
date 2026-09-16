@@ -1,0 +1,41 @@
+﻿<Window x:Class="WPF_DataGrid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_DataGrid"
+        mc:Ignorable="d"
+        Title="Магазин компьютерных комплектующих" Height="550" Width="800">
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Content="Добавить товар" Width="130" Margin="3" Click="Add_Click"/>
+            <Button Content="Удалить товар" Width="130" Margin="3" Click="Del_Click"/>
+        </StackPanel>
+        <DataGrid x:Name="tableProduct" Height="200" Margin="10"
+                  AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Width="300" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Цена" Width="120" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Количество" Width="120" Binding="{Binding Count}"/>
+
+                <DataGridTemplateColumn Header="Действие" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Купить" Width="90" Click="Buy_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Margin="10" >
+            <TextBlock Text="Название" Margin="3"/>
+            <TextBox x:Name="txtName" Margin="3"/>
+            <TextBlock Text="Цена" Margin="3"/>
+            <TextBox x:Name="txtPrice" Margin="3"/>
+            <TextBlock Text="Количество для покупки" Margin="3"/>
+            <TextBox x:Name="txtBuyCount" Margin="3"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
