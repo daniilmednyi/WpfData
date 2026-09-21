@@ -1,21 +1,13 @@
 ﻿using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace WPF_DataGrid
 {
     public partial class MainWindow : Window
     {
         ObservableCollection<Product> products = new ObservableCollection<Product>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,18 +18,41 @@ namespace WPF_DataGrid
 
             tableProduct.ItemsSource = products;
         }
+
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            string name = txtName.Text;
-            int price = Convert.ToInt32(txtPrice.Text);
-            int count = Convert.ToInt32(txtBuyCount.Text);
+            if (string.IsNullOrWhiteSpace(txtName.Text) ||
+                string.IsNullOrWhiteSpace(txtPrice.Text) ||
+                string.IsNullOrWhiteSpace(txtCount.Text))
+            {
+                MessageBox.Show("Заполните все поля!");
+                return;
+            }
+
+            if (!int.TryParse(txtPrice.Text, out int price) || price < 0)
+            {
+                MessageBox.Show("Некорректная цена!");
+                return;
+            }
+
+            if (!int.TryParse(txtCount.Text, out int count) || count < 0)
+            {
+                MessageBox.Show("Некорректное количество!");
+                return;
+            }
+
             products.Add(new Product
             {
-                Name = name,
-                Count = count,
-                Price = price
+                Name = txtName.Text,
+                Price = price,
+                Count = count
             });
+
+            txtName.Clear();
+            txtPrice.Clear();
+            txtCount.Clear();
         }
+
         private void Del_Click(object sender, RoutedEventArgs e)
         {
             if (tableProduct.SelectedItem is Product p)
@@ -46,15 +61,17 @@ namespace WPF_DataGrid
                     "Удаление",
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
+
                 if (q == MessageBoxResult.Yes)
                     products.Remove(p);
             }
         }
+
         private void Buy_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button).DataContext is Product p)
             {
-                if (!int.TryParse(txtBuyCount.Text, out int quantity) || quantity <= 0)
+                if (!int.TryParse(txtCount.Text, out int quantity) || quantity <= 0)
                 {
                     MessageBox.Show("Введите корректное количество!");
                     return;
@@ -65,7 +82,6 @@ namespace WPF_DataGrid
                     MessageBox.Show("Недостаточно товара на складе");
                     return;
                 }
-
                 p.Count -= quantity;
 
                 tableProduct.ItemsSource = null;

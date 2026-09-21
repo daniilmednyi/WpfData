@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_DataGrid"
         mc:Ignorable="d"
-        Title="Магазин компьютерных комплектующих" Height="550" Width="800">
+    Title="Магазин компьютерных комплектующих" Height="550" Width="800">
     <StackPanel>
         <StackPanel Orientation="Horizontal" Margin="10">
             <Button Content="Добавить товар" Width="130" Margin="3" Click="Add_Click"/>
@@ -18,24 +18,23 @@
                 <DataGridTextColumn Header="Название" Width="300" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Цена" Width="120" Binding="{Binding Price}"/>
                 <DataGridTextColumn Header="Количество" Width="120" Binding="{Binding Count}"/>
-
-                <DataGridTemplateColumn Header="Действие" Width="120">
+                <DataGridTemplateColumn Header="Действие">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Купить" Width="90" Click="Buy_Click"/>
+                           <Button Content="Купить" Click="Buy_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+            
         </DataGrid>
-
-        <StackPanel Margin="10" >
+        <StackPanel Margin="10">
             <TextBlock Text="Название" Margin="3"/>
             <TextBox x:Name="txtName" Margin="3"/>
             <TextBlock Text="Цена" Margin="3"/>
             <TextBox x:Name="txtPrice" Margin="3"/>
-            <TextBlock Text="Количество для покупки" Margin="3"/>
-            <TextBox x:Name="txtBuyCount" Margin="3"/>
+            <TextBlock Text="Количество" Margin="3"/>
+            <TextBox x:Name="txtCount" Margin="3"/>
         </StackPanel>
     </StackPanel>
 </Window>
